@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Integumentary System vocabulary review: sort the chaos into categories.">
+<meta name="theme-color" content="#13294B">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Integumentary Chaos to Categories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+img{max-width:100%}
+/* Layout: one centered column (max 1120px). Play screens put the Word Bank beside a 2x2 category grid, echoing the classroom slides. Mustang blues + skin-layer tones. */
+:root{
+  --bg:#EEF5FB; --surface:#FFFFFF; --surface-2:#E2EDF6; --ink:#0F2236; --muted:#4F6579; --line:#C9DBEA;
+  --carolina:#4B9CD3; --link:#1A6FA8; --gold:#F2B630; --star-off:#C9DBEA;
+  --chip:#141B23; --chip-ink:#FFFFFF;
+  --tile:#DCE9F4; --tile-ink:#0F2236; --tile-sel:#13294B; --tile-sel-ink:#FFFFFF;
+  --btn-bg:#13294B; --btn-ink:#FFFFFF; --life:#13294B;
+  --good:#1F7A50; --bad:#B83A35; --warn:#8A5A0B; --on-state:#FFFFFF;
+  --g0:#A9D5F3; --g0-ink:#0F2236; --g1:#4B9CD3; --g1-ink:#08182A; --g2:#1F3B66; --g2-ink:#FFFFFF; --g3:#F2BFA3; --g3-ink:#2A160C;
+  --air:#DDEFFC; --epi:#EFC6A4; --epi-line:#C99470; --derm:#E9AFA6; --derm-line:#C97D74; --hypo:#F7E4BC; --hypo-cell:#FBEFD3; --hypo-line:#E0C68E;
+  --vessel:#C8423D; --gland:#2F86C4; --follicle:#D99183; --hair:#2B1D16; --oil:#E9C24F; --muscle:#A8323E; --label-halo:rgba(255,255,255,.9);
+  --scrim:rgba(8,20,34,.55);
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0A1622; --surface:#102336; --surface-2:#173049; --ink:#E6F0F8; --muted:#9BB2C6; --line:#25445F;
+  --carolina:#6DB6E6; --link:#8CCBF2; --star-off:#2A4B68;
+  --chip:#E6F0F8; --chip-ink:#0A1622;
+  --tile:#1B3550; --tile-ink:#E6F0F8; --tile-sel:#6DB6E6; --tile-sel-ink:#06121E;
+  --btn-bg:#6DB6E6; --btn-ink:#06121E; --life:#6DB6E6;
+  --good:#2A9563; --bad:#C94A44; --warn:#9A6A12;
+  --g2:#2D5288;
+  --air:#14304A; --epi:#C9987A; --epi-line:#A5704F; --derm:#A9706A; --derm-line:#85504A; --hypo:#B9A274; --hypo-cell:#C9B488; --hypo-line:#9A8457;
+  --hair:#D9C2AE; --label-halo:rgba(10,22,34,.88);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0A1622; --surface:#102336; --surface-2:#173049; --ink:#E6F0F8; --muted:#9BB2C6; --line:#25445F;
+  --carolina:#6DB6E6; --link:#8CCBF2; --star-off:#2A4B68;
+  --chip:#E6F0F8; --chip-ink:#0A1622;
+  --tile:#1B3550; --tile-ink:#E6F0F8; --tile-sel:#6DB6E6; --tile-sel-ink:#06121E;
+  --btn-bg:#6DB6E6; --btn-ink:#06121E; --life:#6DB6E6;
+  --good:#2A9563; --bad:#C94A44; --warn:#9A6A12;
+  --g2:#2D5288;
+  --air:#14304A; --epi:#C9987A; --epi-line:#A5704F; --derm:#A9706A; --derm-line:#85504A; --hypo:#B9A274; --hypo-cell:#C9B488; --hypo-line:#9A8457;
+  --hair:#D9C2AE; --label-halo:rgba(10,22,34,.88);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--font-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+#app{max-width:1120px;margin:0 auto}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--carolina);outline-offset:2px}
+h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
+
+/* ---------- Home ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:center;margin-bottom:28px}
+.eyebrow{margin:0 0 10px;text-transform:uppercase;letter-spacing:.09em;font-size:.8rem;font-weight:700;color:var(--muted)}
+.hero h1{font-weight:800;font-size:clamp(2.5rem,6.4vw,4.4rem);line-height:.95;letter-spacing:-.02em}
+.hero h1 .chaos{display:inline-flex;color:var(--carolina)}
+.hero h1 .chaos span{display:inline-block;transform:rotate(var(--r)) translateY(var(--y));transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.hero:hover h1 .chaos span{transform:none}
+.hero h1 .cats{display:block}
+.lede{max-width:46ch;margin:16px 0 0;font-size:1.08rem;color:var(--muted)}
+.skin{margin:0}
+.skin-btn{display:block;width:100%;padding:0;border:2px solid var(--line);border-radius:18px;overflow:hidden;background:var(--air);cursor:pointer}
+.skin-btn svg{display:block;width:100%;height:auto}
+.skin figcaption{margin-top:8px;font-size:.9rem;color:var(--muted);text-align:center}
+.s-air{fill:var(--air)}
+.s-hypo{fill:var(--hypo)} .s-fat circle{fill:var(--hypo-cell);stroke:var(--hypo-line);stroke-width:1.5}
+.s-derm{fill:var(--derm)} .s-fiber{fill:none;stroke:var(--derm-line);stroke-width:2;opacity:.55;stroke-linecap:round}
+.s-vessel{fill:none;stroke:var(--vessel);stroke-width:5;stroke-linecap:round;opacity:.75}
+.s-epi{fill:var(--epi)} .s-corneum{stroke:var(--epi-line);stroke-width:1.5;opacity:.6}
+.s-bump{fill:var(--epi);transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .45s ease}
+.skin.goose .s-bump{transform:scaleY(1)}
+.s-gland path,.s-gland ellipse{fill:none;stroke:var(--gland);stroke-width:4;stroke-linecap:round}
+.s-follicle{stroke:var(--follicle);stroke-width:16;stroke-linecap:round}
+.s-shaft{stroke:var(--hair);stroke-width:4;stroke-linecap:round}
+.s-bulb{fill:var(--follicle)} .s-papilla{fill:var(--vessel)} .s-oil{fill:var(--oil)}
+.s-pili{fill:none;stroke:var(--muscle);stroke-linecap:round}
+.s-labels text{fill:var(--ink);font:700 14px var(--font-body);text-anchor:end;paint-order:stroke;stroke:var(--label-halo);stroke-width:4px;stroke-linejoin:round}
+
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.mode{display:grid;grid-template-columns:110px minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:16px;row-gap:4px;align-items:start;text-align:left;
+  background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .2s,transform .2s}
+.mode:hover{transform:translateY(-2px)}
+.mode.on{border-color:var(--carolina);background:color-mix(in srgb,var(--carolina) 11%,var(--surface))}
+.mode-art{grid-row:1/4;width:100%;height:auto}
+.mode-title{font-family:var(--font-display);font-weight:800;font-size:1.35rem;display:flex;align-items:center;gap:8px}
+.mode-title .pick{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.mode.on .pick{border-color:var(--carolina);background:var(--carolina)}
+.mode.on .pick::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--surface)}
+.mode-desc{color:var(--muted);font-size:.95rem}
+.mode-stars{display:flex;align-items:center;gap:4px;font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+.ma-box{fill:var(--surface);stroke:var(--line);stroke-width:2} .ma-head{fill:var(--carolina)} .ma-chip{fill:var(--chip)}
+.ma-slot{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 3} .ma-arrow{fill:none;stroke:var(--carolina);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ma-tile{fill:var(--tile)} .ma-sel{fill:var(--tile-sel)}
+
+.boards h2{font-size:1.5rem;font-weight:800;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:12px}
+.boards h2 span{font-family:var(--font-body);font-size:.9rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.board-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:12px}
+.board{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:border-color .2s,transform .2s}
+.board:hover{border-color:var(--carolina);transform:translateY(-3px)}
+.board:hover .mini{transform:none}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.board-num{background:var(--acc);color:#fff;font-family:var(--font-display);font-weight:800;padding:3px 10px;border-radius:8px}
+.board-count{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.mess{display:flex;flex-wrap:wrap;gap:6px;min-height:68px;align-content:flex-start;padding:4px 0}
+.mini{background:var(--chip);color:var(--chip-ink);font-size:.78rem;padding:3px 8px;border-radius:4px;transform:rotate(var(--r));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.board-stars{display:flex;align-items:center;gap:2px;font-size:.82rem;color:var(--muted)}
+.board-stars span{width:56px}
+.board-stars .star{width:17px;height:17px}
+.board-go{font-weight:700;color:var(--link);margin-top:auto}
+.foot{margin-top:36px;display:flex;justify-content:center}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:6px}
+.reset-ask{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:12px 16px}
+
+.star{width:20px;height:20px;flex:none}
+.star path{fill:var(--star-off)} .star.on path{fill:var(--gold)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .2s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--btn-bg);color:var(--btn-ink)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover{background:var(--surface)}
+.btn.danger{background:var(--bad);color:var(--on-state)}
+.btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+
+/* ---------- Play bar ---------- */
+.playbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:10px}
+.pb-right{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.pb-title{text-align:center;display:flex;flex-direction:column;line-height:1.15}
+.pb-mode{text-transform:uppercase;letter-spacing:.09em;font-size:.74rem;font-weight:700;color:var(--muted)}
+.pb-title strong{font-family:var(--font-display);font-size:1.4rem;font-weight:800}
+.dots{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
+.dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.dot.done{border-color:var(--good)}
+.dot.on{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg)}
+.howto{margin:0 0 14px;color:var(--muted);text-align:center}
+
+/* ---------- Guided Sort ---------- */
+.sortgrid{display:grid;grid-template-columns:minmax(0,1fr) 260px;grid-template-areas:"zones bank";gap:16px;align-items:start}
+.zones{grid-area:zones;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bank{grid-area:bank;position:sticky;top:max(12px,env(safe-area-inset-top,0px));background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:12px;cursor:pointer}
+.bank-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-family:var(--font-display);font-weight:800;font-size:1.15rem}
+.bank-head .count{font-family:var(--font-body);font-weight:700;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bank-chips{display:flex;flex-direction:column;gap:8px}
+.bank-chips .chip{width:100%}
+.zone{display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--line);border-radius:16px;overflow:hidden;min-height:168px;cursor:pointer;transition:background .15s,border-color .15s}
+.zone-head{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;font-family:var(--font-display);font-weight:800;font-size:1rem;line-height:1.2;padding:10px 12px}
+.zcount{flex:none;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 9px;font-family:var(--font-body);font-size:.85rem;font-variant-numeric:tabular-nums}
+.zcount.full{background:#fff;color:#0F2236}
+.zcount.over{background:#FFE1DE;color:#7A1C18}
+.zone-body{flex:1;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:12px}
+.zone-empty{color:var(--muted);font-size:.9rem;font-style:italic}
+.has-sel .zone,.has-sel .bank{border-style:dashed;border-color:var(--carolina)}
+.zone.hover,.bank.hover{background:color-mix(in srgb,var(--carolina) 16%,var(--surface));border-color:var(--carolina)}
+.chip{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--chip);color:var(--chip-ink);border:0;border-radius:8px;padding:9px 14px;font-size:1rem;line-height:1.2;box-shadow:0 2px 0 rgba(0,0,0,.25);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s,opacity .15s}
+.chip svg{width:16px;height:16px}
+.chip.sel{outline:3px solid var(--carolina);outline-offset:2px;transform:translateY(-2px)}
+.chip.dragging{opacity:.28}
+.chip.ghost{position:fixed;left:0;top:0;z-index:70;pointer-events:none;box-shadow:0 14px 28px rgba(0,0,0,.32);margin:0}
+.chip.locked{background:var(--good);color:var(--on-state);cursor:default}
+.chip.pop{animation:pop .3s ease}
+.chip.shake{animation:shake .5s ease;background:var(--bad);color:var(--on-state)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.score{color:var(--muted);font-variant-numeric:tabular-nums}
+.score strong{color:var(--ink);font-size:1.1rem}
+
+/* ---------- Chaos Mode ---------- */
+.sizes{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:-4px 0 14px}
+.sizes-label{font-size:.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.sizepill{display:inline-flex;align-items:center;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+.sizepill i{width:9px;height:9px;border-radius:2px;background:var(--carolina)}
+.sizepill b{margin-left:5px;font-size:.88rem;font-variant-numeric:tabular-nums}
+.bands{display:grid;gap:8px;margin-bottom:8px}
+.band{border-radius:12px;padding:12px 16px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.band strong{font-family:var(--font-display);font-weight:800;font-size:1.08rem;text-transform:uppercase;letter-spacing:.03em}
+.band span{font-size:.98rem}
+.band.c0{background:var(--g0);color:var(--g0-ink)} .band.c1{background:var(--g1);color:var(--g1-ink)}
+.band.c2{background:var(--g2);color:var(--g2-ink)} .band.c3{background:var(--g3);color:var(--g3-ink)}
+.band.revealed{opacity:.82;outline:2px dashed var(--muted);outline-offset:-5px}
+.band.band-in{animation:bandin .45s cubic-bezier(.3,1.4,.5,1)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tile{min-height:76px;border:0;border-radius:10px;background:var(--tile);color:var(--tile-ink);padding:8px;font-weight:700;font-size:clamp(.8rem,2.3vw,1.04rem);line-height:1.2;hyphens:auto;overflow-wrap:break-word;cursor:pointer;transition:background .15s,transform .15s}
+.tile:hover{background:color-mix(in srgb,var(--carolina) 22%,var(--tile))}
+.tile.sel{background:var(--tile-sel);color:var(--tile-sel-ink);transform:scale(.96)}
+.tile.jump{animation:jump .45s ease both;animation-delay:var(--d,0ms)}
+.tile.shake{animation:shake .5s ease}
+.chaos-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:16px}
+.lives{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--muted)}
+.lives i{width:15px;height:15px;border-radius:50%;background:var(--life);transition:transform .3s}
+.lives i.lost{background:transparent;border:2px solid var(--line)}
+.lives i.just{animation:lose .5s ease}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.endbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:16px;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+.endbar p{margin:0;flex-basis:100%;font-weight:700}
+
+/* ---------- Modal, toast, confetti ---------- */
+.modal-wrap{position:fixed;inset:0;z-index:50;background:var(--scrim);display:grid;place-items:center;padding:16px;padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+.modal{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:440px;width:100%;text-align:center;animation:rise .35s cubic-bezier(.3,1.3,.5,1)}
+.modal h2{font-size:1.9rem;font-weight:800;margin:6px 0}
+.modal p{margin:6px 0;color:var(--muted)}
+.modal .allline{color:var(--ink);font-weight:700}
+.modal-stars{display:flex;justify-content:center;gap:6px}
+.modal-stars .star{width:54px;height:54px;animation:pop .45s ease both}
+.modal-stars .star:nth-child(2){animation-delay:.15s} .modal-stars .star:nth-child(3){animation-delay:.3s}
+.modal-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:80;max-width:calc(100% - 32px);background:var(--btn-bg);color:var(--btn-ink);padding:12px 20px;border-radius:999px;font-weight:700;text-align:center;pointer-events:none;transition:opacity .25s,transform .25s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.bad{background:var(--bad);color:var(--on-state)} #toast.good{background:var(--good);color:var(--on-state)} #toast.warn{background:var(--warn);color:var(--on-state)}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+
+@keyframes pop{0%{transform:scale(.6);opacity:.4}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{translate:0}20%{translate:-7px}40%{translate:7px}60%{translate:-5px}80%{translate:4px}}
+@keyframes jump{0%,100%{translate:0 0}45%{translate:0 -12px}}
+@keyframes bandin{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(24px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+@keyframes lose{0%{transform:scale(1.6)}100%{transform:scale(1)}}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .sortgrid{grid-template-columns:1fr;grid-template-areas:"bank" "zones"}
+  .bank{top:env(safe-area-inset-top,0px);z-index:5;max-height:42vh;overflow-y:auto;box-shadow:0 8px 16px -10px rgba(0,0,0,.3)}
+  .bank-chips{flex-direction:row;flex-wrap:wrap}
+  .bank-chips .chip{width:auto}
+}
+@media (max-width:640px){
+  .modes{grid-template-columns:1fr}
+  .mode{grid-template-columns:84px minmax(0,1fr)}
+  .playbar .btn span{display:none}
+  .playbar .btn{padding:9px}
+  .zones{grid-template-columns:1fr}
+  .zone{min-height:110px}
+}
+@media (max-width:380px){ .tiles{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+document.documentElement.lang = 'en';
+
+const BOARDS = [
+  { accent:'#1586BF', groups:[
+    { name:'Main Sections of the Integument', terms:['epidermis','dermis','hypodermis'] },
+    { name:'Sections of the Epidermis', terms:['stratum corneum','stratum lucidum','stratum granulosum','stratum spinosum','stratum basale'] },
+    { name:'Pigments That Can Affect Skin Coloration', terms:['melanin','carotene','hemoglobin'] },
+    { name:'Characteristic Skin Markings', terms:['cleavage lines','flexure lines','friction ridges'] } ] },
+  { accent:'#13838B', groups:[
+    { name:'Disney Princesses', terms:['Elsa','Belle','Jasmine'] },
+    { name:'Skin Appendages', terms:['hair','nails','sweat glands','oil glands','sensory receptors'] },
+    { name:'Hollywood Villains', terms:['Hannibal Lecter','Lord Voldemort','Norman Bates'] },
+    { name:'Effects of Differential Pigmentation of the Skin', terms:['tanning','moles','freckles','carotenosis','cyanosis'] } ] },
+  { accent:'#2A6FB0', groups:[
+    { name:'Parts of the Nail', terms:['lunule','free edge','eponychium','hyponychium','body'] },
+    { name:'Skin Proteins', terms:['keratin','collagen','elastin'] },
+    { name:'Layers of the Dermis', terms:['papillary','reticular'] },
+    { name:'Parts of a Hair', terms:['papilla','shaft','follicle','arrector pili','bulb'] } ] },
+  { accent:'#357A4C', groups:[
+    { name:'Epidermal Cell Types', terms:['keratinocytes','Dendritic (Langerhans)','melanocytes','tactile (Merkel)'] },
+    { name:'Hair Types', terms:['vellus','terminal'] },
+    { name:'DC Universe Characters', terms:['Batman','Superman','Wonder Woman','The Flash','Aquaman'] },
+    { name:'Marvel Cinematic Universe Characters', terms:['Thor','Hulk','Iron Man','Captain America','Black Panther'] } ] },
+  { accent:'#1F7F66', groups:[
+    { name:'Types of Sudoriferous Glands', terms:['eccrine','apocrine','ceruminous','mammary'] },
+    { name:'Touch Receptors', terms:['Merkel discs','hair follicle receptors','Meissner’s corpuscles'] },
+    { name:'Pressure Receptors', terms:['Pacinian corpuscles','Ruffini endings'] },
+    { name:'Homeostatic Imbalances of the Integumentary System', terms:['striae','decubitus ulcers','hirsutism','alopecia','acne','seborrhea'] } ] }
+];
+const BYID = new Map();
+BOARDS.forEach((b,bi)=>{ b.terms=[]; b.groups.forEach((g,gi)=>g.terms.forEach((t,ti)=>{ const o={id:`${bi}-${gi}-${ti}`,text:t,g:gi}; b.terms.push(o); BYID.set(o.id,o); })); });
+const TOTAL = BOARDS.reduce((n,b)=>n+b.terms.length,0);
+const LIVES = 4;
+
+const KEY = 'c2c-integumentary-v1';
+function loadP(){ try{ const p=JSON.parse(localStorage.getItem(KEY)||'null'); if(p&&p.sort&&p.chaos) return p; }catch(e){} return {sort:{},chaos:{},mode:'sort'}; }
+function saveP(){ try{ localStorage.setItem(KEY,JSON.stringify(P)); }catch(e){} }
+let P = loadP();
+const S = { view:'home', board:0, mode:P.mode==='chaos'?'chaos':'sort', resetAsk:false };
+let G = null;
+const app = document.getElementById('app');
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const modeName = m => m==='sort' ? 'Guided Sort' : 'Chaos Mode';
+const otherMode = () => S.mode==='sort' ? 'chaos' : 'sort';
+
+const I = {
+  back:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  fwd:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  restart:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  shuffle:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3c2 0 3.2 1 4.2 2.7l1.6 2.6C13.8 14 15 15 17 15h3M17 12l3 3-3 3M4 17h3c1.3 0 2.3-.4 3.1-1.2M13.9 8.2C14.7 7.4 15.7 7 17 7h3M17 4l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  clear:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  swap:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4L3 8l4 4M3 8h14M17 12l4 4-4 4M21 16H7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+const star = on => `<svg class="star ${on?'on':''}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>`;
+const stars = n => [0,1,2].map(i=>star(i<n)).join('');
+const totalStars = m => Object.values(P[m]).reduce((a,b)=>a+b,0);
+
+/* ---------- Skin cross-section (hero) ---------- */
+let hairA = 24, goose = false;
+function skinSVG(){
+  let ridge=''; for(let x=480;x>=0;x-=20) ridge+=` T${x} 86`;
+  let fat=''; for(let row=0;row<3;row++) for(let x=-10;x<550;x+=30){ fat+=`<circle cx="${x+(row%2?15:0)}" cy="${198+row*24}" r="13"/>`; }
+  return `<svg viewBox="0 0 520 262" role="img" aria-label="Skin cross-section showing the epidermis, dermis, hypodermis, a hair follicle with its arrector pili muscle, and a sweat gland">
+    <rect class="s-air" width="520" height="50"/>
+    <rect class="s-hypo" x="0" y="174" width="520" height="88"/>
+    <g class="s-fat">${fat}</g>
+    <rect class="s-derm" x="0" y="70" width="520" height="108"/>
+    <path class="s-fiber" d="M16 118 q20 -10 40 0 t40 0 t40 0 M236 142 q20 -10 40 0 t40 0 M380 112 q20 -10 40 0 t40 0 t40 0 M196 104 q14 -8 28 0 t28 0"/>
+    <path class="s-vessel" d="M0 166 C110 148 200 184 300 164 S440 148 520 164"/>
+    <path class="s-epi" d="M0 44 H520 V86 Q510 98 500 86${ridge} Z"/>
+    <path class="s-corneum" d="M0 50 H520 M0 56 H520"/>
+    <ellipse class="s-bump" cx="160" cy="44" rx="26" ry="8"/>
+    <g class="s-gland"><path d="M350 44 c4 20 -4 40 0 60 s-4 30 0 42"/><ellipse cx="350" cy="154" rx="17" ry="9"/><ellipse cx="353" cy="158" rx="11" ry="12"/></g>
+    <path id="pili" class="s-pili" d=""/>
+    <g id="hair">
+      <line class="s-follicle" x1="150" y1="40" x2="150" y2="184"/>
+      <ellipse class="s-oil" cx="163" cy="104" rx="9" ry="13"/>
+      <line class="s-shaft" x1="150" y1="180" x2="150" y2="0"/>
+      <ellipse class="s-bulb" cx="150" cy="186" rx="13" ry="10"/>
+      <circle class="s-papilla" cx="150" cy="190" r="5"/>
+    </g>
+    <g class="s-labels"><text x="510" y="72">epidermis</text><text x="510" y="132">dermis</text><text x="510" y="240">hypodermis</text></g>
+  </svg>`;
+}
+function setHair(a){
+  const g=document.getElementById('hair'), p=document.getElementById('pili'); if(!g||!p) return;
+  g.setAttribute('transform',`rotate(${a.toFixed(2)} 150 50)`);
+  const r=a*Math.PI/180, lx=5, ly=86;
+  const x=150+lx*Math.cos(r)-ly*Math.sin(r), y=50+lx*Math.sin(r)+ly*Math.cos(r);
+  p.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)} Q${((x+204)/2+6).toFixed(1)} ${((y+90)/2+8).toFixed(1)} 204 90`);
+  p.style.strokeWidth = (4 + (24-a)/21*3.5).toFixed(2);
+}
+function toggleGoose(){
+  goose=!goose;
+  const fig=document.querySelector('.skin'); if(fig){ fig.classList.toggle('goose',goose); fig.querySelector('figcaption').textContent = goose ? 'Arrector pili contracted: the hair stands up and the skin forms a goosebump. Tap again to relax.' : 'Tap the skin to contract the arrector pili.'; }
+  const from=hairA, to=goose?3:24;
+  if(reduceMotion){ hairA=to; setHair(to); return; }
+  const t0=performance.now();
+  (function f(t){ const k=Math.min(1,(t-t0)/460), e=1-Math.pow(1-k,3); hairA=from+(to-from)*e; setHair(hairA); if(k<1) requestAnimationFrame(f); })(t0);
+}
+
+/* ---------- Home ---------- */
+function modeArt(m){
+  if(m==='sort') return `<svg class="mode-art" viewBox="0 0 120 80" aria-hidden="true">
+    <rect x="54" y="6" width="62" height="68" rx="8" class="ma-box"/><path d="M54 14a8 8 0 0 1 8-8h46a8 8 0 0 1 8 8v8H54z" class="ma-head"/>
+    <rect x="62" y="30" width="46" height="10" rx="3" class="ma-chip"/><rect x="62" y="44" width="46" height="10" rx="3" class="ma-chip"/>
+    <rect x="62" y="58" width="46" height="10" rx="3" class="ma-slot"/>
+    <rect x="2" y="57" width="36" height="12" rx="3" class="ma-chip" transform="rotate(-8 20 63)"/>
+    <path d="M40 62 H56 M51 57 l6 5 -6 5" class="ma-arrow"/></svg>`;
+  let r=''; const sel=[1,6,8];
+  for(let i=0;i<12;i++){ const x=8+(i%4)*27, y=10+Math.floor(i/4)*22; r+=`<rect x="${x}" y="${y}" width="23" height="17" rx="4" class="${sel.includes(i)?'ma-sel':'ma-tile'}"/>`; }
+  return `<svg class="mode-art" viewBox="0 0 120 80" aria-hidden="true">${r}</svg>`;
+}
+function modeCard(m,desc){
+  const on=S.mode===m;
+  return `<button class="mode ${on?'on':''}" data-action="mode" data-mode="${m}" aria-pressed="${on}">
+    ${modeArt(m)}
+    <span class="mode-title"><span class="pick"></span>${modeName(m)}</span>
+    <span class="mode-desc">${desc}</span>
+    <span class="mode-stars">${star(true)}<span>${totalStars(m)} of 15 stars</span></span>
+  </button>`;
+}
+const ROT=[-7,5,-3,8,-5];
+function boardCard(b,bi){
+  const picks=[1,5,9,13].map(k=>b.terms[(k+bi*3)%b.terms.length]);
+  return `<button class="board" data-action="play" data-board="${bi}" style="--acc:${b.accent}">
+    <span class="board-top"><span class="board-num">Board ${bi+1}</span><span class="board-count">${b.terms.length} terms</span></span>
+    <span class="mess" aria-hidden="true">${picks.map((t,i)=>`<span class="mini" style="--r:${ROT[(i+bi)%5]}deg">${esc(t.text)}</span>`).join('')}</span>
+    <span class="board-stars"><span>Guided</span>${stars(P.sort[bi]||0)}</span>
+    <span class="board-stars"><span>Chaos</span>${stars(P.chaos[bi]||0)}</span>
+    <span class="board-go">Play ${modeName(S.mode)}</span>
+  </button>`;
+}
+function renderHome(){
+  const chaosWord='Chaos'.split('').map((c,i)=>`<span style="--r:${[-14,9,-6,15,-10][i]}deg;--y:${[4,-6,3,-3,6][i]}px">${c}</span>`).join('');
+  app.innerHTML = `
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Human A&amp;P · Integumentary System</p>
+      <h1>From <span class="chaos" aria-label="Chaos">${chaosWord}</span> <span class="cats">to Categories</span></h1>
+      <p class="lede">${TOTAL} vocabulary terms across 5 boards. Each board mixes four categories together, and your job is to pull them apart.</p>
+    </div>
+    <figure class="skin ${goose?'goose':''}">
+      <button class="skin-btn" data-action="goose" aria-label="Contract or relax the arrector pili muscle">${skinSVG()}</button>
+      <figcaption>${goose?'Arrector pili contracted: the hair stands up and the skin forms a goosebump. Tap again to relax.':'Tap the skin to contract the arrector pili.'}</figcaption>
+    </figure>
+  </header>
+  <section class="modes" aria-label="Choose a mode">
+    ${modeCard('sort','Category names are shown. Drag each term into its box, then check your work.')}
+    ${modeCard('chaos','Category names are hidden. Find the terms that belong together. 4 mistakes allowed.')}
+  </section>
+  <section class="boards">
+    <h2>Pick a board <span>${modeName(S.mode)}</span></h2>
+    <div class="board-grid">${BOARDS.map(boardCard).join('')}</div>
+  </section>
+  <footer class="foot">${S.resetAsk
+    ? `<div class="reset-ask"><span>Erase all stars saved on this device?</span><button class="btn danger" data-action="reset-yes">Erase stars</button><button class="btn ghost" data-action="reset-no">Keep them</button></div>`
+    : `<button class="linkbtn" data-action="reset-ask">Reset my stars</button>`}</footer>`;
+  setHair(hairA);
+}
+
+/* ---------- Shared play bar ---------- */
+function playBar(){
+  return `<div class="playbar">
+    <div><button class="btn ghost" data-action="home" aria-label="All boards">${I.back}<span>All boards</span></button></div>
+    <div class="pb-title"><span class="pb-mode">${modeName(S.mode)}</span><strong>Board ${S.board+1} of ${BOARDS.length}</strong></div>
+    <div class="pb-right">
+      <button class="btn ghost" data-action="restart" aria-label="Start this board over">${I.restart}<span>Start over</span></button>
+      <button class="btn ghost" data-action="switchmode" aria-label="Switch to ${modeName(otherMode())}">${I.swap}<span>${modeName(otherMode())}</span></button>
+    </div>
+  </div>
+  <nav class="dots" aria-label="Boards">${BOARDS.map((b,i)=>`<button class="dot ${i===S.board?'on':''} ${(P[S.mode][i]||0)>0?'done':''}" data-action="play" data-board="${i}" aria-label="Board ${i+1}${i===S.board?', current':''}">${i+1}</button>`).join('')}</nav>`;
+}
+
+function startBoard(bi){
+  closeModal();
+  S.view='play'; S.board=bi;
+  const ids=shuffle(BOARDS[bi].terms.map(t=>t.id));
+  if(S.mode==='sort'){
+    G={ order:ids, place:{}, seq:{}, n:0, locked:new Set(), attempts:0, sel:null, done:false, anim:{} };
+    ids.forEach(id=>G.place[id]=-1);
+  } else {
+    G={ order:ids, solved:[], mistakes:0, sel:new Set(), tried:new Set(), over:false, done:false, busy:false, anim:{}, delay:{}, lifeFlash:false };
+  }
+  render(); window.scrollTo(0,0);
+}
+
+/* ---------- Guided Sort ---------- */
+function chipHtml(id){
+  const t=BYID.get(id), lk=G.locked.has(id);
+  return `<button class="chip ${lk?'locked':''} ${G.sel===id?'sel':''} ${G.anim[id]||''}" data-action="chip" data-id="${id}" ${lk?'aria-disabled="true"':''} aria-pressed="${G.sel===id}">${lk?I.check:''}<span>${esc(t.text)}</span></button>`;
+}
+function renderSort(){
+  const b=BOARDS[S.board];
+  const inZone=z=>G.order.filter(id=>G.place[id]===z).sort((a,c)=>(G.seq[a]||0)-(G.seq[c]||0));
+  const bank=inZone(-1);
+  const zones=b.groups.map((g,gi)=>{
+    const ids=inZone(gi), n=g.terms.length, c=ids.length;
+    return `<div class="zone" data-action="zone" data-zone="${gi}" role="button" tabindex="0" aria-label="${esc(g.name)}: ${c} of ${n} placed">
+      <div class="zone-head" style="background:${b.accent}"><span>${esc(g.name)}</span><span class="zcount ${c>n?'over':c===n?'full':''}">${c} / ${n}</span></div>
+      <div class="zone-body">${ids.map(chipHtml).join('') || `<span class="zone-empty">Drop ${n} terms here</span>`}</div>
+    </div>`;
+  }).join('');
+  const last=S.board===BOARDS.length-1;
+  app.innerHTML = playBar() + `
+    <p class="howto">Drag each term into its category. On a phone or tablet, tap a term, then tap a box.</p>
+    <div class="sortgrid ${G.sel?'has-sel':''}">
+      <aside class="bank" data-action="zone" data-zone="-1" role="button" tabindex="0" aria-label="Word Bank">
+        <div class="bank-head"><span>Word Bank</span><span class="count">${bank.length} left</span></div>
+        <div class="bank-chips">${bank.map(chipHtml).join('') || `<span class="zone-empty">${G.done?'All sorted!':'Empty. Time to check your sort.'}</span>`}</div>
+      </aside>
+      <div class="zones">${zones}</div>
+    </div>
+    <div class="actions">
+      <div class="score"><strong>${G.locked.size}</strong> of ${b.terms.length} locked in &nbsp;·&nbsp; Checks used: ${G.attempts}</div>
+      ${G.done
+        ? `<button class="btn primary" data-action="${last?'home':'next'}">${last?'All boards':'Next board'} ${I.fwd}</button>`
+        : `<button class="btn primary" data-action="check">${I.check}<span>Check my sort</span></button>`}
+    </div>`;
+  G.anim={};
+}
+function sortChip(id){
+  if(G.done||G.locked.has(id)) return;
+  G.sel = G.sel===id ? null : id; render();
+}
+function sortZone(z){
+  if(G.done) return;
+  if(!G.sel){ if(z!==-1) toast('Tap a term first, then tap a box.'); return; }
+  placeTerm(G.sel,z);
+}
+function placeTerm(id,z){
+  if(!G||G.locked.has(id)) return;
+  G.place[id]=z; G.seq[id]=++G.n; G.sel=null; G.anim={[id]:'pop'}; render();
+}
+function sortCheck(){
+  if(G.done) return;
+  const b=BOARDS[S.board];
+  const left=G.order.filter(id=>G.place[id]===-1).length;
+  if(left){ toast(`Place every term first. ${left} still in the Word Bank.`,'warn'); return; }
+  G.attempts++; G.sel=null;
+  const wrong=[];
+  G.order.forEach(id=>{ if(G.locked.has(id)) return; if(BYID.get(id).g===G.place[id]) G.locked.add(id); else wrong.push(id); });
+  if(!wrong.length){
+    G.done=true; render();
+    const st=G.attempts===1?3:G.attempts===2?2:1;
+    finish(st, G.attempts===1?'Perfect sort on the first check!':`Sorted in ${G.attempts} checks. Every term is in the right place.`);
+    return;
+  }
+  wrong.forEach(id=>G.anim[id]='shake'); render();
+  toast(`${G.locked.size} of ${b.terms.length} correct. ${wrong.length} ${wrong.length===1?'term goes':'terms go'} back to the Word Bank.`,'bad');
+  const g0=G;
+  setTimeout(()=>{ if(G!==g0) return; wrong.forEach(id=>{ G.place[id]=-1; G.anim[id]='pop'; }); render(); },650);
+}
+
+/* Drag and drop (pointer events work for mouse, touch, and pen) */
+let drag=null, suppress=false;
+document.addEventListener('pointerdown',e=>{
+  if(S.view!=='play'||S.mode!=='sort'||!G||G.done) return;
+  const chip=e.target.closest('.chip'); if(!chip||chip.classList.contains('locked')||e.button>0) return;
+  drag={ chip, id:chip.dataset.id, x:e.clientX, y:e.clientY, pid:e.pointerId, started:false };
+});
+document.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.pid) return;
+  if(!drag.started){
+    if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<7) return;
+    const r=drag.chip.getBoundingClientRect();
+    drag.ox=drag.x-r.left; drag.oy=drag.y-r.top;
+    const gh=drag.chip.cloneNode(true); gh.className='chip ghost'; gh.style.width=r.width+'px';
+    document.body.appendChild(gh); drag.ghost=gh; drag.started=true;
+    drag.chip.classList.add('dragging');
+  }
+  e.preventDefault();
+  drag.ghost.style.transform=`translate(${e.clientX-drag.ox}px,${e.clientY-drag.oy}px) rotate(-3deg)`;
+  const under=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-zone]');
+  document.querySelectorAll('[data-zone].hover').forEach(z=>{ if(z!==under) z.classList.remove('hover'); });
+  if(under) under.classList.add('hover');
+  if(e.clientY<60) window.scrollBy(0,-14); else if(e.clientY>innerHeight-60) window.scrollBy(0,14);
+},{passive:false});
+function endDrag(e,cancel){
+  if(!drag||e.pointerId!==drag.pid) return;
+  const d=drag; drag=null;
+  if(!d.started) return;
+  d.ghost.remove();
+  suppress=true; setTimeout(()=>suppress=false,350);
+  const under=cancel?null:document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-zone]');
+  if(under) placeTerm(d.id,+under.dataset.zone); else render();
+}
+document.addEventListener('pointerup',e=>endDrag(e,false));
+document.addEventListener('pointercancel',e=>endDrag(e,true));
+
+/* ---------- Chaos Mode ---------- */
+const unsolved=()=>BOARDS[S.board].groups.map((g,i)=>i).filter(i=>!G.solved.some(s=>s.g===i));
+function renderChaos(){
+  const b=BOARDS[S.board];
+  const left=unsolved(), n=G.sel.size;
+  const sizes=left.map(i=>b.groups[i].terms.length).sort((a,c)=>c-a);
+  const bands=G.solved.map((s,k)=>{ const g=b.groups[s.g];
+    return `<div class="band c${k%4} ${s.revealed?'revealed':''} ${s.fresh?'band-in':''}"><strong>${esc(g.name)}</strong><span>${g.terms.map(esc).join(' · ')}</span></div>`; }).join('');
+  const tiles=G.order.map(id=>`<button class="tile ${G.sel.has(id)?'sel':''} ${G.anim[id]||''}" style="--d:${G.delay[id]||0}ms" data-action="tile" data-id="${id}" aria-pressed="${G.sel.has(id)}">${esc(BYID.get(id).text)}</button>`).join('');
+  const livesLeft=LIVES-G.mistakes, last=S.board===BOARDS.length-1;
+  let bottom;
+  if(G.over) bottom=`<div class="endbar"><p>Out of mistakes. The groups you didn't find are shown with dashed outlines.</p>
+      <button class="btn primary" data-action="restart">${I.restart}<span>Try this board again</span></button>
+      <button class="btn ghost" data-action="switchmode">${I.swap}<span>Practice it in Guided Sort</span></button></div>`;
+  else if(G.done) bottom=`<div class="endbar"><p>Board ${S.board+1} solved!</p>
+      <button class="btn primary" data-action="${last?'home':'next'}">${last?'All boards':'Next board'} ${I.fwd}</button></div>`;
+  else bottom=`<div class="chaos-controls">
+      <div class="lives" aria-label="${livesLeft} mistakes left"><span>Mistakes left</span>${Array.from({length:LIVES},(_,i)=>`<i class="${i<livesLeft?'':'lost'} ${G.lifeFlash&&i===livesLeft?'just':''}"></i>`).join('')}</div>
+      <div class="btnrow">
+        <button class="btn ghost" data-action="shuffle">${I.shuffle}<span>Shuffle</span></button>
+        <button class="btn ghost" data-action="deselect" ${n?'':'disabled'}>${I.clear}<span>Deselect all</span></button>
+        <button class="btn primary" data-action="submit" ${n>=2?'':'disabled'}>${I.check}<span>Submit${n?` ${n} terms`:''}</span></button>
+      </div>
+    </div>`;
+  app.innerHTML = playBar() + `
+    <p class="howto">Select terms that belong in the same category, then submit. The groups are different sizes.</p>
+    ${sizes.length?`<div class="sizes"><span class="sizes-label">Groups left</span>${sizes.map(k=>`<span class="sizepill" aria-label="group of ${k}">${'<i></i>'.repeat(k)}<b>${k}</b></span>`).join('')}</div>`:''}
+    <div class="bands">${bands}</div>
+    ${tiles?`<div class="tiles">${tiles}</div>`:''}
+    ${bottom}`;
+  G.anim={}; G.lifeFlash=false; G.solved.forEach(s=>s.fresh=false);
+}
+function chaosTile(id){
+  if(G.busy||G.over||G.done) return;
+  if(G.sel.has(id)) G.sel.delete(id);
+  else {
+    const max=Math.max(...unsolved().map(i=>BOARDS[S.board].groups[i].terms.length));
+    if(G.sel.size>=max){ toast(`The biggest group left has ${max} terms.`,'warn'); return; }
+    G.sel.add(id);
+  }
+  render();
+}
+function chaosSubmit(){
+  if(G.busy||G.over||G.done||G.sel.size<2) return;
+  const b=BOARDS[S.board], sel=[...G.sel], key=sel.slice().sort().join('|');
+  if(G.tried.has(key)){ toast('You already tried that combination.','warn'); return; }
+  const gs=sel.map(id=>BYID.get(id).g);
+  if(gs.every(g=>g===gs[0]) && b.groups[gs[0]].terms.length===sel.length){
+    G.busy=true; G.delay={};
+    sel.forEach((id,i)=>{ G.anim[id]='jump'; G.delay[id]=i*70; });
+    render();
+    const g0=G;
+    setTimeout(()=>{
+      if(G!==g0) return;
+      G.order=G.order.filter(id=>!G.sel.has(id)); G.sel.clear(); G.delay={}; G.busy=false;
+      G.solved.push({g:gs[0],fresh:true});
+      if(!unsolved().length){
+        G.done=true; render();
+        const m=G.mistakes;
+        finish(m===0?3:m===1?2:1, m===0?'Every group found with no mistakes.':`All four groups found with ${m} mistake${m===1?'':'s'}.`);
+      } else { render(); toast(`Found: ${b.groups[gs[0]].name}`,'good'); }
+    }, reduceMotion?60:sel.length*70+480);
+    return;
+  }
+  G.tried.add(key); G.mistakes++; G.lifeFlash=true;
+  let msg='Those terms don’t all belong together.';
+  for(const gi of unsolved()){
+    const size=b.groups[gi].terms.length, ov=gs.filter(g=>g===gi).length;
+    if(sel.length===size && ov===size-1){ msg='One away!'; break; }
+    if(ov===sel.length && sel.length<size){ msg=`So close! These belong together, but that group has ${size} terms.`; break; }
+    if(ov===size && sel.length>size){ msg='Too many. A complete group is hiding inside your picks.'; break; }
+  }
+  sel.forEach(id=>G.anim[id]='shake');
+  if(G.mistakes>=LIVES){
+    G.over=true; G.sel.clear(); render(); toast('Out of mistakes!','bad');
+    const g0=G;
+    setTimeout(()=>{ if(G!==g0) return; unsolved().forEach(gi=>G.solved.push({g:gi,revealed:true,fresh:true})); G.order=[]; render(); },900);
+    return;
+  }
+  render(); toast(msg,'bad');
+}
+
+/* ---------- Finish, modal, toast, confetti ---------- */
+function finish(st,line){
+  const m=S.mode;
+  if(st>(P[m][S.board]||0)){ P[m][S.board]=st; saveP(); }
+  const all=BOARDS.every((_,i)=>(P[m][i]||0)>0);
+  const last=S.board===BOARDS.length-1;
+  confetti(all?260:130);
+  app.insertAdjacentHTML('beforeend',`<div class="modal-wrap" data-action="modal-bg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <div class="modal-stars">${stars(st)}</div>
+    <h2 id="mt">${all?'Chaos conquered!':`Board ${S.board+1} complete`}</h2>
+    <p>${line}</p>
+    ${all?`<p class="allline">All 5 boards finished in ${modeName(m)}. You have ${totalStars(m)} of 15 stars.</p>`:''}
+    <div class="modal-actions">
+      ${last?'':`<button class="btn primary" data-action="next">Next board ${I.fwd}</button>`}
+      <button class="btn ${last?'primary':'ghost'}" data-action="switchmode">${I.swap}<span>Play this board in ${modeName(otherMode())}</span></button>
+      <button class="btn ghost" data-action="close-modal">Look at my board</button>
+      <button class="btn ghost" data-action="home">All boards</button>
+    </div></div></div>`);
+  app.querySelector('.modal .btn')?.focus();
+  if(S.view==='play') document.querySelectorAll('.dot')[S.board]?.classList.add('done');
+}
+function closeModal(){ document.querySelector('.modal-wrap')?.remove(); }
+let toastT;
+function toast(text,type=''){
+  let t=document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.setAttribute('role','status'); document.body.appendChild(t); }
+  t.textContent=text; t.className='show '+type;
+  clearTimeout(toastT); toastT=setTimeout(()=>{ t.className=type; },2700);
+}
+function confetti(n){
+  if(reduceMotion) return;
+  const c=document.getElementById('confetti'), ctx=c.getContext('2d'), dpr=window.devicePixelRatio||1, W=innerWidth, H=innerHeight;
+  c.width=W*dpr; c.height=H*dpr; ctx.scale(dpr,dpr);
+  const cols=['#4B9CD3','#A9D5F3','#13294B','#F2B630','#F2BFA3','#FFFFFF'];
+  const ps=Array.from({length:n},()=>({ x:W/2+(Math.random()-.5)*W*.35, y:H*.38, vx:(Math.random()-.5)*15, vy:-Math.random()*15-4, r:Math.random()*6, vr:(Math.random()-.5)*.3, w:6+Math.random()*6, h:9+Math.random()*8, c:cols[Math.random()*cols.length|0] }));
+  const t0=performance.now();
+  (function f(t){
+    ctx.clearRect(0,0,W,H);
+    ps.forEach(p=>{ p.vy+=.34; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h*Math.abs(Math.cos(p.r*2))+2); ctx.restore(); });
+    if(t-t0<3300) requestAnimationFrame(f); else ctx.clearRect(0,0,W,H);
+  })(t0);
+}
+
+/* ---------- Router + events ---------- */
+function render(){
+  if(S.view==='home'||!G) renderHome();
+  else if(S.mode==='sort') renderSort();
+  else renderChaos();
+}
+document.addEventListener('click',e=>{
+  if(suppress){ suppress=false; e.preventDefault(); e.stopPropagation(); return; }
+  const el=e.target.closest('[data-action]'); if(!el||el.disabled) return;
+  switch(el.dataset.action){
+    case 'mode': S.mode=el.dataset.mode; P.mode=S.mode; saveP(); render(); break;
+    case 'play': startBoard(+el.dataset.board); break;
+    case 'home': closeModal(); S.view='home'; G=null; render(); window.scrollTo(0,0); break;
+    case 'restart': startBoard(S.board); break;
+    case 'switchmode': S.mode=otherMode(); P.mode=S.mode; saveP(); startBoard(S.board); break;
+    case 'next': if(S.board<BOARDS.length-1) startBoard(S.board+1); else { closeModal(); S.view='home'; G=null; render(); } break;
+    case 'chip': sortChip(el.dataset.id); break;
+    case 'zone': sortZone(+el.dataset.zone); break;
+    case 'check': sortCheck(); break;
+    case 'tile': chaosTile(el.dataset.id); break;
+    case 'shuffle': if(!G.busy){ G.order=shuffle(G.order); render(); } break;
+    case 'deselect': G.sel.clear(); render(); break;
+    case 'submit': chaosSubmit(); break;
+    case 'close-modal': closeModal(); break;
+    case 'modal-bg': if(e.target===el) closeModal(); break;
+    case 'goose': toggleGoose(); break;
+    case 'reset-ask': S.resetAsk=true; render(); break;
+    case 'reset-no': S.resetAsk=false; render(); break;
+    case 'reset-yes': P={sort:{},chaos:{},mode:S.mode}; saveP(); S.resetAsk=false; render(); toast('Stars erased.'); break;
+  }
+},true);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+  const el=e.target.closest?.('[role="button"][data-action]');
+  if(el && e.target===el && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); el.click(); }
+});
+render();
+</script>
+</body>
+</html>
