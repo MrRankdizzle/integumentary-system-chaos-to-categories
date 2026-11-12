@@ -9,7 +9,14 @@
 <title>Integumentary Chaos to Categories</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Lexend:wght@400;700&display=swap">
+<script>
+/* Settings menu choices (text size, theme, motion, reading and color options) live under their own key, apart from the
+   stars in c2c-integumentary-v1, and are applied here before the page paints so nothing flashes. */
+try{const d=document.documentElement,o=JSON.parse(localStorage.getItem('c2c-integumentary-settings')||'{}')||{};
+  if(o.theme==='light'||o.theme==='dark')d.dataset.theme=o.theme;if(o.text==='large'||o.text==='xl')d.dataset.text=o.text;
+  d.classList.toggle('rm',o.motion==='reduce');d.classList.toggle('cb',o.cvd==='cb');d.classList.toggle('dys',o.dys==='on');d.classList.toggle('hc',o.hc==='on');d.classList.toggle('tts',o.tts==='on')}catch(e){}
+</script>
 <style>
 :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 [hidden]{display:none!important}
@@ -55,7 +62,7 @@ img{max-width:100%}
 }
 *{box-sizing:border-box}
 body{margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--font-body);
+body{background:var(--bg);color:var(--ink);font:1rem/1.5 var(--font-body);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
 #app{max-width:1120px;margin:0 auto}
 button{font:inherit;color:inherit}
@@ -64,7 +71,8 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 
 /* ---------- Home ---------- */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:center;margin-bottom:28px}
-.eyebrow{margin:0 0 10px;text-transform:uppercase;letter-spacing:.09em;font-size:.8rem;font-weight:700;color:var(--muted)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.eyebrow{margin:0;text-transform:uppercase;letter-spacing:.09em;font-size:.8rem;font-weight:700;color:var(--muted)}
 .hero h1{font-weight:800;font-size:clamp(2.5rem,6.4vw,4.4rem);line-height:.95;letter-spacing:-.02em}
 .hero h1 .chaos{display:inline-flex;color:var(--carolina)}
 .hero h1 .chaos span{display:inline-block;transform:rotate(var(--r)) translateY(var(--y));transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
@@ -158,6 +166,7 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 .bank-chips{display:flex;flex-direction:column;gap:8px}
 .bank-chips .chip{width:100%}
 .zone{display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--line);border-radius:16px;overflow:hidden;min-height:168px;cursor:pointer;transition:background .15s,border-color .15s}
+.zname{display:flex;align-items:center}
 .zone-head{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;font-family:var(--font-display);font-weight:800;font-size:1rem;line-height:1.2;padding:10px 12px}
 .zcount{flex:none;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 9px;font-family:var(--font-body);font-size:.85rem;font-variant-numeric:tabular-nums}
 .zcount.full{background:#fff;color:#0F2236}
@@ -173,7 +182,8 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 .chip.ghost{position:fixed;left:0;top:0;z-index:70;pointer-events:none;box-shadow:0 14px 28px rgba(0,0,0,.32);margin:0}
 .chip.locked{background:var(--good);color:var(--on-state);cursor:default}
 .chip.pop{animation:pop .3s ease}
-.chip.shake{animation:shake .5s ease;background:var(--bad);color:var(--on-state)}
+.chip.shake{animation:shake .5s ease}
+.chip.shake,.chip.wrong{background:var(--bad);color:var(--on-state)}
 .actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
 .score{color:var(--muted);font-variant-numeric:tabular-nums}
 .score strong{color:var(--ink);font-size:1.1rem}
@@ -197,7 +207,7 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 .tile:hover{background:color-mix(in srgb,var(--carolina) 22%,var(--tile))}
 .tile.sel{background:var(--tile-sel);color:var(--tile-sel-ink);transform:scale(.96)}
 .tile.jump{animation:jump .45s ease both;animation-delay:var(--d,0ms)}
-.tile.shake{animation:shake .5s ease}
+.tile.shake{animation:shake .5s ease;box-shadow:inset 0 0 0 3px var(--bad)}
 .chaos-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:16px}
 .lives{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--muted)}
 .lives i{width:15px;height:15px;border-radius:50%;background:var(--life);transition:transform .3s}
@@ -209,7 +219,7 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 
 /* ---------- Modal, toast, confetti ---------- */
 .modal-wrap{position:fixed;inset:0;z-index:50;background:var(--scrim);display:grid;place-items:center;padding:16px;padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
-.modal{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:440px;width:100%;text-align:center;animation:rise .35s cubic-bezier(.3,1.3,.5,1)}
+.modal{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:440px;width:100%;text-align:center;max-height:100%;overflow-y:auto;animation:rise .35s cubic-bezier(.3,1.3,.5,1)}
 .modal h2{font-size:1.9rem;font-weight:800;margin:6px 0}
 .modal p{margin:6px 0;color:var(--muted)}
 .modal .allline{color:var(--ink);font-weight:700}
@@ -217,7 +227,7 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 .modal-stars .star{width:54px;height:54px;animation:pop .45s ease both}
 .modal-stars .star:nth-child(2){animation-delay:.15s} .modal-stars .star:nth-child(3){animation-delay:.3s}
 .modal-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px}
-#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:80;max-width:calc(100% - 32px);background:var(--btn-bg);color:var(--btn-ink);padding:12px 20px;border-radius:999px;font-weight:700;text-align:center;pointer-events:none;transition:opacity .25s,transform .25s}
+#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:110;max-width:calc(100% - 32px);background:var(--btn-bg);color:var(--btn-ink);padding:12px 20px;border-radius:999px;font-weight:700;text-align:center;pointer-events:none;transition:opacity .25s,transform .25s}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #toast.bad{background:var(--bad);color:var(--on-state)} #toast.good{background:var(--good);color:var(--on-state)} #toast.warn{background:var(--warn);color:var(--on-state)}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
@@ -239,13 +249,106 @@ h1,h2{font-family:var(--font-display);text-wrap:balance;margin:0}
 @media (max-width:640px){
   .modes{grid-template-columns:1fr}
   .mode{grid-template-columns:84px minmax(0,1fr)}
+  .playbar{grid-template-columns:auto minmax(0,1fr) auto}
+  .pb-right{flex-wrap:nowrap}
   .playbar .btn span{display:none}
   .playbar .btn{padding:9px}
   .zones{grid-template-columns:1fr}
   .zone{min-height:110px}
 }
 @media (max-width:380px){ .tiles{grid-template-columns:repeat(3,minmax(0,1fr))} }
-@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
+/* =================== SETTINGS (menu button in the top corner) =================== */
+html[data-text="large"]{font-size:112.5%}html[data-text="xl"]{font-size:125%}
+.set-btn svg{width:20px;height:20px}
+.playbar .set-btn{padding-inline:10px}
+/* bigger or wider letters on a phone: fewer, wider Chaos Mode tiles so words never break mid-word */
+@media (max-width:520px){ :is(html[data-text],.dys) .tiles{grid-template-columns:repeat(2,minmax(0,1fr))} :is(html[data-text],.dys) .pb-title strong{font-size:1.15rem} }
+.set-scrim{position:fixed;inset:0;z-index:100;background:var(--scrim);animation:setFade .2s ease}
+.set-drawer{position:fixed;top:0;right:0;bottom:0;z-index:101;width:min(430px,100%);overflow:auto;overscroll-behavior:contain;background:var(--surface);color:var(--ink);border-left:2px solid var(--line);box-shadow:-18px 0 50px rgba(8,20,34,.3);
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 20px calc(env(safe-area-inset-bottom,0px) + 32px);display:grid;gap:20px;align-content:start;animation:setIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes setIn{from{transform:translateX(100%)}}
+@keyframes setFade{from{opacity:0}}
+.set-head{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:-16px;margin:-16px -20px 0;padding:16px 20px 12px;background:var(--surface);z-index:1;border-bottom:2px solid var(--line)}
+.set-head h2{font-size:1.5rem;font-weight:800;display:flex;align-items:center;gap:10px}
+.set-head h2 svg{width:26px;height:26px;color:var(--link)}
+.set-sec{display:grid;gap:16px}
+.set-sec>h3{margin:0;font:700 .76rem/1.2 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--link);padding-bottom:6px;border-bottom:2px solid var(--line)}
+.set-row{display:grid;gap:8px;border:0;margin:0;padding:0;min-width:0}
+.set-row>legend{font-weight:700;padding:0;margin-bottom:8px}
+.set-note{margin:-4px 0 0;font-size:.86rem;color:var(--muted);line-height:1.4}
+.set-seg{display:flex;flex-wrap:wrap;gap:6px}
+.set-seg label{position:relative;flex:1 1 auto;display:grid;place-items:center;text-align:center;padding:9px 10px;min-height:44px;border-radius:10px;border:2px solid var(--line);background:var(--surface-2);font-weight:700;font-size:.92rem;line-height:1.2;cursor:pointer}
+.set-seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.set-seg label.on,.set-seg label:has(input:checked){background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-ink)}
+.set-seg label:has(input:focus-visible){outline:3px solid var(--carolina);outline-offset:2px}
+.set-seg .aa{font-family:var(--font-display);font-weight:800;line-height:1}
+.set-sw{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;text-align:left;background:none;border:0;padding:0;color:var(--ink);cursor:pointer}
+.set-sw b{display:block;font-size:1rem}
+.set-sw .set-note{display:block;margin:2px 0 0}
+.sw-track{flex:none;width:54px;height:32px;border-radius:999px;background:var(--muted);position:relative;transition:background .2s}
+.sw-track::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.set-sw[aria-checked="true"] .sw-track{background:var(--btn-bg)}
+.set-sw[aria-checked="true"] .sw-track::after{transform:translateX(22px)}
+.set-sw:focus-visible{outline-offset:4px;border-radius:8px}
+.set-try{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.set-foot{font-size:.84rem;color:var(--muted);margin:0}
+.set-reset,.set-wipe{justify-self:start}
+.set-confirm{display:grid;gap:10px;padding:14px;border-radius:12px;border:2px solid var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--surface))}
+.set-confirm p{margin:0;font-size:.92rem;line-height:1.45}
+.set-preview{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.set-preview .chip{cursor:default;pointer-events:none;padding:6px 12px;font-size:.92rem}
+.set-preview .stars{display:inline-flex;gap:2px}
+
+/* =================== READ ALOUD =================== */
+.say{display:none}
+.tts .say{display:inline-grid;place-items:center;flex:none;width:36px;height:36px;padding:0;margin-right:8px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:var(--link);vertical-align:middle;cursor:pointer}
+.tts .say:hover{border-color:var(--carolina)}
+.say svg{width:18px;height:18px}
+.say.talking{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-ink)}
+.zone-head .say{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.55);color:#fff}
+.zone-head .say.talking{background:#fff;border-color:#fff;color:#0F2236}
+.band .say{text-transform:none}
+.say-pop{position:fixed;left:0;top:0;z-index:96;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.3);cursor:pointer}
+.say-pop svg{width:18px;height:18px}
+
+/* =================== READING RULER =================== */
+.ruler{position:fixed;left:0;right:0;top:0;height:2.6em;margin-top:-1.3em;pointer-events:none;z-index:99;background:color-mix(in srgb,#F2C744 16%,transparent);border-block:2px solid color-mix(in srgb,#F2C744 60%,transparent);will-change:transform}
+
+/* =================== DYSLEXIA-FRIENDLY TEXT =================== */
+.dys{--font-body:"Lexend","Atkinson Hyperlegible",system-ui,sans-serif}
+.dys body{letter-spacing:.03em;word-spacing:.12em;line-height:1.75}
+.dys :is(.lede,.howto,.mode-desc,.modal p,.band span){line-height:1.75}
+.dys .howto{text-align:left}
+.dys *{font-style:normal!important}
+.dys .tile{hyphens:manual}
+.dys svg{letter-spacing:normal;word-spacing:normal}
+
+/* =================== HIGH CONTRAST =================== */
+:root.hc{--muted:#2C4257;--line:#6C87A0;--link:#0F5383;--star-off:#8FA6BA}
+@media (prefers-color-scheme: dark){:root.hc:not([data-theme="light"]){--muted:#D3E2EE;--line:#7C9DBB;--link:#BFE0F7;--star-off:#5E82A3}}
+:root.hc[data-theme="dark"]{--muted:#D3E2EE;--line:#7C9DBB;--link:#BFE0F7;--star-off:#5E82A3}
+.hc .sizepill{border-width:2px}
+.hc .tile{box-shadow:inset 0 0 0 2px var(--line)}
+.hc .tile.shake{box-shadow:inset 0 0 0 3px var(--bad)}
+.hc :focus-visible{outline-width:4px!important;outline-color:var(--ink)!important}
+
+/* =================== COLOR-BLIND FRIENDLY =================== */
+/* Right/wrong turn blue/orange (safe for red-green and blue-yellow color blindness), and every state that color used to
+   carry alone also gets a shape: an X on wrong terms, a check on finished boards, outlined stars for stars not earned. */
+:root{--cb-ok:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --cb-no:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 4.5l7 7M11.5 4.5l-7 7' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+:root.cb{--good:#0067A3;--bad:#C2410C}
+@media (prefers-color-scheme: dark){:root.cb:not([data-theme="light"]){--good:#1B75BB;--bad:#B8500F}}
+:root.cb[data-theme="dark"]{--good:#1B75BB;--bad:#B8500F}
+.cb :is(.chip:is(.shake,.wrong):not(.ghost),.tile.shake,.dot.done){position:relative}
+.cb :is(.chip:is(.shake,.wrong),.tile.shake)::after{content:"";position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:var(--bad) var(--cb-no) center/12px no-repeat;box-shadow:0 0 0 2px var(--surface);pointer-events:none;z-index:3}
+.cb .tile.shake::after{top:4px;right:4px}
+.cb .dot.done::after{content:"";position:absolute;top:-7px;right:-7px;width:16px;height:16px;border-radius:50%;background:var(--good) var(--cb-ok) center/10px no-repeat;box-shadow:0 0 0 2px var(--bg);pointer-events:none}
+:is(.cb,.hc) .star:not(.on) path{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-linejoin:round}
+
+/* =================== CALM MOTION (only when the student picks Calm in Settings) =================== */
+/* Never driven by the device's own reduce-motion flag: many school computers have it on, which froze the animations. */
+.rm *,.rm *::before,.rm *::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
 </style>
 </head>
 <body>
@@ -294,7 +397,6 @@ let P = loadP();
 const S = { view:'home', board:0, mode:P.mode==='chaos'?'chaos':'sort', resetAsk:false };
 let G = null;
 const app = document.getElementById('app');
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 const modeName = m => m==='sort' ? 'Guided Sort' : 'Chaos Mode';
@@ -312,6 +414,149 @@ const I = {
 const star = on => `<svg class="star ${on?'on':''}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>`;
 const stars = n => [0,1,2].map(i=>star(i<n)).join('');
 const totalStars = m => Object.values(P[m]).reduce((a,b)=>a+b,0);
+
+/* ---------- SETTINGS MENU: display, reading, and color options (the three-line button in the top corner) ---------- */
+// Saved under its own key, separate from the stars (c2c-integumentary-v1), so erasing stars never resets a student's
+// accommodations. The <head> script applies the saved classes before the page paints.
+const SET_KEY = 'c2c-integumentary-settings';
+const SET_OK = { theme:['auto','light','dark'], text:['normal','large','xl'], motion:['full','reduce'], hc:['off','on'], dys:['off','on'], ruler:['off','on'], tts:['off','on'], rate:['normal','slow'], cvd:['default','cb'] };
+const SET = (()=>{ let o={}; try{ o=JSON.parse(localStorage.getItem(SET_KEY)||'{}')||{}; }catch(e){} const r={}; for(const k in SET_OK) r[k]=SET_OK[k].includes(o[k])?o[k]:SET_OK[k][0]; return r; })();
+// Motion is Full for everyone unless the student picks Calm here. Never read the device's prefers-reduced-motion:
+// many school computers have it switched on, and following it froze the animations in the other Mustang apps.
+function reducedMotion(){ return SET.motion==='reduce'; }
+const TTS_OK = (()=>{ try{ return 'speechSynthesis' in window && typeof SpeechSynthesisUtterance==='function'; }catch(e){ return false; } })();
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const ICO_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+const ICO_SPEAK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.5h3.8L12 5.6v12.8l-4.7-3.9H3.5z" fill="currentColor"/><path d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
+const ICO_SLIDERS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="15" cy="7" r="2.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="17" r="2.4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>';
+const setBtn = (label=true) => `<button class="btn ghost set-btn" type="button" data-settings aria-label="Settings: text size, colors, reading help" title="Settings: text size, colors, reading help">${ICO_MENU}${label?'<span>Settings</span>':''}</button>`;
+const isDark = () => SET.theme==='dark' || (SET.theme==='auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+function applySettings(){
+  const d=document.documentElement;
+  if(SET.theme==='auto') d.removeAttribute('data-theme'); else d.dataset.theme=SET.theme;
+  if(SET.text==='normal') d.removeAttribute('data-text'); else d.dataset.text=SET.text;
+  d.classList.toggle('rm',reducedMotion()); d.classList.toggle('cb',SET.cvd==='cb'); d.classList.toggle('dys',SET.dys==='on');
+  d.classList.toggle('hc',SET.hc==='on'); d.classList.toggle('tts',TTS_OK&&SET.tts==='on');
+  const m=document.querySelector('meta[name="theme-color"]'); if(m) m.content=isDark()?'#0A1622':'#13294B';
+  ruler(SET.ruler==='on');
+  if(SET.tts!=='on'){ stopSpeech(); hideSayPop(); }
+}
+function saveSettings(){ try{ localStorage.setItem(SET_KEY,JSON.stringify(SET)); }catch(e){} }
+function setSetting(k,v){ if(SET[k]===v) return; SET[k]=v; saveSettings(); applySettings(); }
+/* reading ruler: a soft gold band that follows the pointer or finger */
+let RULER=null;
+const rulerAt = y => { if(RULER) RULER.style.transform=`translateY(${Math.round(y)}px)`; };
+const rulerPtr = e => rulerAt(e.clientY), rulerTouch = e => { const t=e.touches&&e.touches[0]; if(t) rulerAt(t.clientY); };
+function ruler(on){
+  if(on&&!RULER){
+    RULER=document.createElement('div'); RULER.className='ruler'; RULER.setAttribute('aria-hidden','true'); document.body.appendChild(RULER); rulerAt(innerHeight*.45);
+    addEventListener('pointermove',rulerPtr,{passive:true}); addEventListener('pointerdown',rulerPtr,{passive:true}); addEventListener('touchmove',rulerTouch,{passive:true});
+  } else if(!on&&RULER){
+    RULER.remove(); RULER=null; removeEventListener('pointermove',rulerPtr); removeEventListener('pointerdown',rulerPtr); removeEventListener('touchmove',rulerTouch);
+  }
+}
+/* read aloud: speaker buttons (.say) read directions and category names, tapping a term says it, feedback messages are
+   spoken, and selecting any text shows a "Read aloud" button */
+let VOICE=null, sayingBtn=null, sayPop=null;
+function pickVoice(){
+  try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/^en[-_]US/i.test(v.lang)&&/Google|Natural|Samantha|Aria|Jenny/i.test(v.name))||vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){}
+}
+if(TTS_OK){ pickVoice(); try{ speechSynthesis.addEventListener('voiceschanged',pickVoice); }catch(e){} }
+function stopSpeech(){ if(!TTS_OK) return; try{ speechSynthesis.cancel(); }catch(e){} if(sayingBtn) sayingBtn.classList.remove('talking'); sayingBtn=null; }
+function speak(text,btn){
+  if(!TTS_OK) return;
+  const again=btn&&btn===sayingBtn; stopSpeech(); if(again) return; // a second tap stops the reading
+  const parts=String(text||'').replace(/\s+/g,' ').trim().match(/[^.!?]+[.!?]*\s*/g); if(!parts) return;
+  // one short utterance per sentence: Chrome cuts off long ones after about 15 seconds
+  parts.forEach((t,i)=>{
+    const u=new SpeechSynthesisUtterance(t.trim()); u.lang='en-US'; if(VOICE) u.voice=VOICE; u.rate=SET.rate==='slow'?.8:1;
+    if(btn&&i===parts.length-1) u.onend=u.onerror=()=>{ if(sayingBtn===btn){ btn.classList.remove('talking'); sayingBtn=null; } };
+    speechSynthesis.speak(u);
+  });
+  if(btn){ sayingBtn=btn; btn.classList.add('talking'); }
+}
+const ttsOn = () => TTS_OK && SET.tts==='on';
+// text = exactly what to read (given as plain text, so uppercase styling never makes the voice spell words out)
+const sayBtn = (text,label='Read this out loud') => `<button type="button" class="say" data-say="${esc(text)}" aria-label="${label}" title="${label}">${ICO_SPEAK}</button>`;
+function hideSayPop(){ if(sayPop) sayPop.hidden=true; }
+function showSayPop(){
+  if(!document.documentElement.classList.contains('tts')) return hideSayPop();
+  let sel, t='';
+  try{ sel=getSelection(); t=sel&&!sel.isCollapsed&&sel.rangeCount?sel.toString().trim():''; }catch(e){}
+  if(t.length<2||(sel.anchorNode&&sel.anchorNode.parentElement&&sel.anchorNode.parentElement.closest('.set-drawer,input,textarea'))) return hideSayPop();
+  const r=sel.getRangeAt(0).getBoundingClientRect(); if(!r.width&&!r.height) return hideSayPop();
+  if(!sayPop){
+    sayPop=document.createElement('button'); sayPop.type='button'; sayPop.className='say-pop'; sayPop.innerHTML=ICO_SPEAK+'<span>Read aloud</span>';
+    sayPop.addEventListener('pointerdown',e=>e.preventDefault()); // keep the selection
+    sayPop.addEventListener('click',()=>{ speak(sayPop._t); hideSayPop(); });
+    document.body.appendChild(sayPop);
+  }
+  sayPop._t=t; sayPop.hidden=false;
+  const x=clamp(r.left+r.width/2,80,innerWidth-80), above=r.top>70, y=above?r.top:r.bottom;
+  sayPop.style.transform=`translate(${Math.round(x)}px,${Math.round(y)}px) translate(-50%,${above?'calc(-100% - 10px)':'10px'})`;
+}
+document.addEventListener('pointerup',()=>setTimeout(showSayPop,20));
+document.addEventListener('keyup',e=>{ if(e.shiftKey||e.key==='Shift') showSayPop(); });
+document.addEventListener('selectionchange',()=>{ try{ if(sayPop&&!sayPop.hidden&&getSelection().isCollapsed) hideSayPop(); }catch(e){} });
+addEventListener('scroll',hideSayPop,{passive:true});
+/* the Settings drawer */
+function openSettings(){
+  if(document.querySelector('.set-layer')) return;
+  const opener=document.activeElement, earned=totalStars('sort')+totalStars('chaos');
+  const seg=(k,label,opts,note='')=>`<fieldset class="set-row"><legend>${label}</legend>${note?`<p class="set-note">${note}</p>`:''}<div class="set-seg">${opts.map(([v,t])=>`<label${SET[k]===v?' class="on"':''}><input type="radio" name="set-${k}" value="${v}"${SET[k]===v?' checked':''}>${t}</label>`).join('')}</div></fieldset>`;
+  const sw=(k,label,note)=>`<button type="button" class="set-sw" role="switch" data-sw="${k}" aria-checked="${SET[k]==='on'}"><span><b>${label}</b><span class="set-note">${note}</span></span><span class="sw-track" aria-hidden="true"></span></button>`;
+  const body=`
+    <section class="set-sec" aria-labelledby="setS1"><h3 id="setS1">See it</h3>
+      ${seg('text','Text size',[['normal','<span class="aa" style="font-size:1rem">A</span>Normal'],['large','<span class="aa" style="font-size:1.25rem">A</span>Large'],['xl','<span class="aa" style="font-size:1.5rem">A</span>Extra large']])}
+      ${seg('theme','Light or dark',[['auto','Match my device'],['light','Light'],['dark','Dark']])}
+      ${sw('hc','High contrast','Darker text and stronger outlines.')}
+      ${seg('motion','Animations',[['full','Full'],['reduce','Calm']],'Calm turns off confetti and plays changes without motion.')}
+    </section>
+    <section class="set-sec" aria-labelledby="setS2"><h3 id="setS2">Read it</h3>
+      ${TTS_OK?`${sw('tts','Read aloud','Speaker buttons read directions and category names. Tap a term to hear it. Feedback is read to you, and you can select any text to hear it.')}
+      ${seg('rate','Reading speed',[['normal','Normal'],['slow','Slower']])}
+      <div class="set-try"><button type="button" class="btn ghost" id="setHear">${ICO_SPEAK} Hear a sample</button></div>`:''}
+      ${sw('dys','Dyslexia-friendly text','A clearer font with more space between letters, words, and lines.')}
+      ${sw('ruler','Reading ruler','A soft band follows your pointer or finger to help you keep your place.')}
+    </section>
+    <section class="set-sec" aria-labelledby="setS3"><h3 id="setS3">Colors</h3>
+      ${seg('cvd','Color vision',[['default','Standard colors'],['cb','Color-blind friendly']],'Color-blind friendly uses blue and orange instead of green and red, and adds a check or X so color is never the only clue.')}
+      <div class="set-preview" aria-hidden="true"><span class="chip locked">${I.check}<span>Right</span></span><span class="chip wrong"><span>Wrong</span></span><span class="stars">${stars(2)}</span></div>
+    </section>
+    <section class="set-sec" aria-labelledby="setS4"><h3 id="setS4">Your progress</h3>
+      <p class="set-note">${earned?`Saved on this device: ${earned} of 30 stars.`:'No stars saved yet.'}</p>
+      <button type="button" class="btn ghost set-wipe" id="setWipe"${earned?'':' disabled'}>${I.restart} Erase my stars</button>
+      <div class="set-confirm" id="setWipeBox" role="alert" hidden>
+        <p><b>Erase all stars saved on this device?</b> You can't undo this. Your settings stay the same.</p>
+        <div class="btnrow"><button type="button" class="btn danger" id="setWipeYes">Yes, erase my stars</button><button type="button" class="btn ghost" id="setWipeNo">Keep my stars</button></div>
+      </div>
+    </section>
+    <p class="set-foot">These settings stay on this device and never change your stars.</p>
+    <button type="button" class="btn ghost set-reset" id="setReset">Reset all settings</button>`;
+  const layer=document.createElement('div'); layer.className='set-layer';
+  layer.innerHTML=`<div class="set-scrim"></div><aside class="set-drawer" role="dialog" aria-modal="true" aria-labelledby="setT"><div class="set-head"><h2 id="setT">${ICO_SLIDERS}Settings</h2><button class="btn primary" id="setX" type="button">Done</button></div>${body}</aside>`;
+  document.body.appendChild(layer);
+  const q=s=>layer.querySelector(s), qa=s=>[...layer.querySelectorAll(s)], drawer=q('.set-drawer');
+  const close=()=>{ layer.remove(); removeEventListener('keydown',kh,true); if(opener&&opener.isConnected&&opener.focus) opener.focus({preventScroll:true}); };
+  const kh=e=>{
+    e.stopPropagation(); // keys belong to the drawer while it's open
+    if(e.key==='Escape'){ e.preventDefault(); close(); return; }
+    if(e.key!=='Tab') return;
+    const f=[...drawer.querySelectorAll('button,input')].filter(x=>!x.disabled&&(x.offsetParent!==null||x.type==='radio'));
+    const i=f.indexOf(document.activeElement), a=f[0], z=f[f.length-1];
+    if(i<0){ e.preventDefault(); a.focus(); } else if(e.shiftKey&&document.activeElement===a){ e.preventDefault(); z.focus(); } else if(!e.shiftKey&&document.activeElement===z){ e.preventDefault(); a.focus(); }
+  };
+  addEventListener('keydown',kh,true);
+  q('.set-scrim').onclick=close; q('#setX').onclick=close; q('#setX').focus();
+  qa('.set-seg input').forEach(r=>r.onchange=()=>{ r.closest('.set-seg').querySelectorAll('label').forEach(l=>l.classList.toggle('on',l.contains(r))); setSetting(r.name.slice(4),r.value); });
+  qa('[data-sw]').forEach(b=>b.onclick=()=>{ const on=b.getAttribute('aria-checked')!=='true'; b.setAttribute('aria-checked',on); setSetting(b.dataset.sw,on?'on':'off'); });
+  const hear=q('#setHear'); if(hear) hear.onclick=()=>speak('This is how directions and feedback will sound. The epidermis, dermis, and hypodermis are the main sections of the integument.',hear);
+  const wipeBox=q('#setWipeBox');
+  q('#setWipe').onclick=()=>{ wipeBox.hidden=false; q('#setWipe').hidden=true; q('#setWipeNo').focus(); wipeBox.scrollIntoView({block:'nearest'}); };
+  q('#setWipeNo').onclick=()=>{ wipeBox.hidden=true; q('#setWipe').hidden=false; q('#setWipe').focus(); };
+  q('#setWipeYes').onclick=()=>{ P={sort:{},chaos:{},mode:S.mode}; saveP(); S.resetAsk=false; close(); render(); toast('Stars erased.'); };
+  q('#setReset').onclick=()=>{ for(const k in SET_OK) SET[k]=SET_OK[k][0]; saveSettings(); applySettings(); close(); openSettings(); toast('Settings reset'); };
+}
 
 /* ---------- Skin cross-section (hero) ---------- */
 let hairA = 24, goose = false;
@@ -352,7 +597,7 @@ function toggleGoose(){
   goose=!goose;
   const fig=document.querySelector('.skin'); if(fig){ fig.classList.toggle('goose',goose); fig.querySelector('figcaption').textContent = goose ? 'Arrector pili contracted: the hair stands up and the skin forms a goosebump. Tap again to relax.' : 'Tap the skin to contract the arrector pili.'; }
   const from=hairA, to=goose?3:24;
-  if(reduceMotion){ hairA=to; setHair(to); return; }
+  if(reducedMotion()){ hairA=to; setHair(to); return; }
   const t0=performance.now();
   (function f(t){ const k=Math.min(1,(t-t0)/460), e=1-Math.pow(1-k,3); hairA=from+(to-from)*e; setHair(hairA); if(k<1) requestAnimationFrame(f); })(t0);
 }
@@ -378,6 +623,7 @@ function modeCard(m,desc){
     <span class="mode-stars">${star(true)}<span>${totalStars(m)} of 15 stars</span></span>
   </button>`;
 }
+const MODE_DESC={ sort:'Category names are shown. Drag each term into its box, then check your work.', chaos:'Category names are hidden. Find the terms that belong together. 4 mistakes allowed.' };
 const ROT=[-7,5,-3,8,-5];
 function boardCard(b,bi){
   const picks=[1,5,9,13].map(k=>b.terms[(k+bi*3)%b.terms.length]);
@@ -392,11 +638,11 @@ function boardCard(b,bi){
 function renderHome(){
   const chaosWord='Chaos'.split('').map((c,i)=>`<span style="--r:${[-14,9,-6,15,-10][i]}deg;--y:${[4,-6,3,-3,6][i]}px">${c}</span>`).join('');
   app.innerHTML = `
+  <div class="topbar"><p class="eyebrow">Human A&amp;P · Integumentary System</p>${setBtn()}</div>
   <header class="hero">
     <div>
-      <p class="eyebrow">Human A&amp;P · Integumentary System</p>
       <h1>From <span class="chaos" aria-label="Chaos">${chaosWord}</span> <span class="cats">to Categories</span></h1>
-      <p class="lede">${TOTAL} vocabulary terms across 5 boards. Each board mixes four categories together, and your job is to pull them apart.</p>
+      <p class="lede">${sayBtn(`${TOTAL} vocabulary terms across 5 boards. Each board mixes four categories together, and your job is to pull them apart. Guided Sort: ${MODE_DESC.sort} Chaos Mode: ${MODE_DESC.chaos}`,'Read the directions out loud')}${TOTAL} vocabulary terms across 5 boards. Each board mixes four categories together, and your job is to pull them apart.</p>
     </div>
     <figure class="skin ${goose?'goose':''}">
       <button class="skin-btn" data-action="goose" aria-label="Contract or relax the arrector pili muscle">${skinSVG()}</button>
@@ -404,8 +650,8 @@ function renderHome(){
     </figure>
   </header>
   <section class="modes" aria-label="Choose a mode">
-    ${modeCard('sort','Category names are shown. Drag each term into its box, then check your work.')}
-    ${modeCard('chaos','Category names are hidden. Find the terms that belong together. 4 mistakes allowed.')}
+    ${modeCard('sort',MODE_DESC.sort)}
+    ${modeCard('chaos',MODE_DESC.chaos)}
   </section>
   <section class="boards">
     <h2>Pick a board <span>${modeName(S.mode)}</span></h2>
@@ -425,6 +671,7 @@ function playBar(){
     <div class="pb-right">
       <button class="btn ghost" data-action="restart" aria-label="Start this board over">${I.restart}<span>Start over</span></button>
       <button class="btn ghost" data-action="switchmode" aria-label="Switch to ${modeName(otherMode())}">${I.swap}<span>${modeName(otherMode())}</span></button>
+      ${setBtn(false)}
     </div>
   </div>
   <nav class="dots" aria-label="Boards">${BOARDS.map((b,i)=>`<button class="dot ${i===S.board?'on':''} ${(P[S.mode][i]||0)>0?'done':''}" data-action="play" data-board="${i}" aria-label="Board ${i+1}${i===S.board?', current':''}">${i+1}</button>`).join('')}</nav>`;
@@ -455,13 +702,13 @@ function renderSort(){
   const zones=b.groups.map((g,gi)=>{
     const ids=inZone(gi), n=g.terms.length, c=ids.length;
     return `<div class="zone" data-action="zone" data-zone="${gi}" role="button" tabindex="0" aria-label="${esc(g.name)}: ${c} of ${n} placed">
-      <div class="zone-head" style="background:${b.accent}"><span>${esc(g.name)}</span><span class="zcount ${c>n?'over':c===n?'full':''}">${c} / ${n}</span></div>
+      <div class="zone-head" style="background:${b.accent}"><span class="zname">${sayBtn(g.name,'Read this category name out loud')}<span>${esc(g.name)}</span></span><span class="zcount ${c>n?'over':c===n?'full':''}">${c} / ${n}</span></div>
       <div class="zone-body">${ids.map(chipHtml).join('') || `<span class="zone-empty">Drop ${n} terms here</span>`}</div>
     </div>`;
   }).join('');
   const last=S.board===BOARDS.length-1;
   app.innerHTML = playBar() + `
-    <p class="howto">Drag each term into its category. On a phone or tablet, tap a term, then tap a box.</p>
+    <p class="howto">${sayBtn('Drag each term into its category. On a phone or tablet, tap a term, then tap a box.','Read the directions out loud')}Drag each term into its category. On a phone or tablet, tap a term, then tap a box.</p>
     <div class="sortgrid ${G.sel?'has-sel':''}">
       <aside class="bank" data-action="zone" data-zone="-1" role="button" tabindex="0" aria-label="Word Bank">
         <div class="bank-head"><span>Word Bank</span><span class="count">${bank.length} left</span></div>
@@ -479,7 +726,7 @@ function renderSort(){
 }
 function sortChip(id){
   if(G.done||G.locked.has(id)) return;
-  G.sel = G.sel===id ? null : id; render();
+  G.sel = G.sel===id ? null : id; if(G.sel&&ttsOn()) speak(BYID.get(id).text); render();
 }
 function sortZone(z){
   if(G.done) return;
@@ -553,7 +800,7 @@ function renderChaos(){
   const left=unsolved(), n=G.sel.size;
   const sizes=left.map(i=>b.groups[i].terms.length).sort((a,c)=>c-a);
   const bands=G.solved.map((s,k)=>{ const g=b.groups[s.g];
-    return `<div class="band c${k%4} ${s.revealed?'revealed':''} ${s.fresh?'band-in':''}"><strong>${esc(g.name)}</strong><span>${g.terms.map(esc).join(' · ')}</span></div>`; }).join('');
+    return `<div class="band c${k%4} ${s.revealed?'revealed':''} ${s.fresh?'band-in':''}"><strong>${sayBtn(`${g.name}: ${g.terms.join(', ')}.`,'Read this group out loud')}${esc(g.name)}</strong><span>${g.terms.map(esc).join(' · ')}</span></div>`; }).join('');
   const tiles=G.order.map(id=>`<button class="tile ${G.sel.has(id)?'sel':''} ${G.anim[id]||''}" style="--d:${G.delay[id]||0}ms" data-action="tile" data-id="${id}" aria-pressed="${G.sel.has(id)}">${esc(BYID.get(id).text)}</button>`).join('');
   const livesLeft=LIVES-G.mistakes, last=S.board===BOARDS.length-1;
   let bottom;
@@ -571,7 +818,7 @@ function renderChaos(){
       </div>
     </div>`;
   app.innerHTML = playBar() + `
-    <p class="howto">Select terms that belong in the same category, then submit. The groups are different sizes.</p>
+    <p class="howto">${sayBtn('Select terms that belong in the same category, then submit. The groups are different sizes.','Read the directions out loud')}Select terms that belong in the same category, then submit. The groups are different sizes.</p>
     ${sizes.length?`<div class="sizes"><span class="sizes-label">Groups left</span>${sizes.map(k=>`<span class="sizepill" aria-label="group of ${k}">${'<i></i>'.repeat(k)}<b>${k}</b></span>`).join('')}</div>`:''}
     <div class="bands">${bands}</div>
     ${tiles?`<div class="tiles">${tiles}</div>`:''}
@@ -584,7 +831,7 @@ function chaosTile(id){
   else {
     const max=Math.max(...unsolved().map(i=>BOARDS[S.board].groups[i].terms.length));
     if(G.sel.size>=max){ toast(`The biggest group left has ${max} terms.`,'warn'); return; }
-    G.sel.add(id);
+    G.sel.add(id); if(ttsOn()) speak(BYID.get(id).text);
   }
   render();
 }
@@ -607,7 +854,7 @@ function chaosSubmit(){
         const m=G.mistakes;
         finish(m===0?3:m===1?2:1, m===0?'Every group found with no mistakes.':`All four groups found with ${m} mistake${m===1?'':'s'}.`);
       } else { render(); toast(`Found: ${b.groups[gs[0]].name}`,'good'); }
-    }, reduceMotion?60:sel.length*70+480);
+    }, reducedMotion()?60:sel.length*70+480);
     return;
   }
   G.tried.add(key); G.mistakes++; G.lifeFlash=true;
@@ -638,7 +885,7 @@ function finish(st,line){
   app.insertAdjacentHTML('beforeend',`<div class="modal-wrap" data-action="modal-bg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
     <div class="modal-stars">${stars(st)}</div>
     <h2 id="mt">${all?'Chaos conquered!':`Board ${S.board+1} complete`}</h2>
-    <p>${line}</p>
+    <p>${sayBtn(`${all?'Chaos conquered!':`Board ${S.board+1} complete.`} ${st} of 3 stars. ${line}`,'Read this out loud')}${line}</p>
     ${all?`<p class="allline">All 5 boards finished in ${modeName(m)}. You have ${totalStars(m)} of 15 stars.</p>`:''}
     <div class="modal-actions">
       ${last?'':`<button class="btn primary" data-action="next">Next board ${I.fwd}</button>`}
@@ -655,10 +902,11 @@ function toast(text,type=''){
   let t=document.getElementById('toast');
   if(!t){ t=document.createElement('div'); t.id='toast'; t.setAttribute('role','status'); document.body.appendChild(t); }
   t.textContent=text; t.className='show '+type;
+  if(ttsOn()) speak(text);
   clearTimeout(toastT); toastT=setTimeout(()=>{ t.className=type; },2700);
 }
 function confetti(n){
-  if(reduceMotion) return;
+  if(reducedMotion()) return;
   const c=document.getElementById('confetti'), ctx=c.getContext('2d'), dpr=window.devicePixelRatio||1, W=innerWidth, H=innerHeight;
   c.width=W*dpr; c.height=H*dpr; ctx.scale(dpr,dpr);
   const cols=['#4B9CD3','#A9D5F3','#13294B','#F2B630','#F2BFA3','#FFFFFF'];
@@ -680,6 +928,8 @@ function render(){
 }
 document.addEventListener('click',e=>{
   if(suppress){ suppress=false; e.preventDefault(); e.stopPropagation(); return; }
+  if(e.target.closest('[data-settings]')){ e.preventDefault(); openSettings(); return; }
+  const sb=e.target.closest('.say'); if(sb){ e.preventDefault(); e.stopPropagation(); speak(sb.dataset.say,sb); return; }
   const el=e.target.closest('[data-action]'); if(!el||el.disabled) return;
   switch(el.dataset.action){
     case 'mode': S.mode=el.dataset.mode; P.mode=S.mode; saveP(); render(); break;
@@ -708,6 +958,7 @@ document.addEventListener('keydown',e=>{
   const el=e.target.closest?.('[role="button"][data-action]');
   if(el && e.target===el && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); el.click(); }
 });
+applySettings();
 render();
 </script>
 </body>

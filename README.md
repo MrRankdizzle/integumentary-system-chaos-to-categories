@@ -9,6 +9,10 @@ Students sort 76 integumentary system terms across 5 boards in two modes:
 
 Stars are saved in each student's own browser (localStorage). No accounts, no server.
 
+## Accessibility
+
+The Settings menu (three-line button in the top corner) lets each student set text size, light or dark mode, high contrast, calm animations, read aloud, dyslexia-friendly text, a reading ruler, and color-blind friendly colors. Choices are saved on the device, separately from stars.
+
 ## Files
 
 - `index.html` is the whole app (HTML, CSS, and JavaScript in one file). Board content lives in the `BOARDS` array near the top of the script.
